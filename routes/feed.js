@@ -8,4 +8,7 @@ const router = express.Router();
 // ejecuta peticiones GET /feed/fleets
 router.get("/fleets", feedController.getFleets);
 
+// ejecuta peticiones POST /feed/fleets
+router.post("/fleets", feedController.createFleet);
+
 module.exports = router;
