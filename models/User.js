@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const userSchema = mongoose.Schema({
     name: { type: String, index: true },
     alias: { type: String, index: true , unique: true},
+    email: { type: String, index: true , unique: true},
     password: { type: String, index: true },
     public: { type: Boolean, index: true },
     foto: String
@@ -15,3 +16,8 @@ const User = mongoose.model('User', userSchema);
 
 // exportar el modelo
 module.exports = User;
+
+//crear metodo para verificar contrasena
+userSchema.methods.encrypPassword = password => {
+
+}
