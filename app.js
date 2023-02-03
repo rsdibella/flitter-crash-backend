@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const feedRoutes = require("./routes/feed");
 
 require("./lib/connectMongoose");
-require("./initdb")
+
 const app = express();
 
 app.use(bodyParser.json());

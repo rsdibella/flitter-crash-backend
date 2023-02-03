@@ -1,6 +1,7 @@
 "use strict"
 
 const mongoose = require("mongoose");
+require("bcryptjs") = require("bcryptjs");
 
 //definir esquema de tweet
 const userSchema = mongoose.Schema({
@@ -14,10 +15,16 @@ const userSchema = mongoose.Schema({
 // crear el modelo
 const User = mongoose.model('User', userSchema);
 
-// exportar el modelo
-module.exports = User;
 
 //crear metodo para verificar contrasena
-userSchema.methods.encrypPassword = password => {
-
+userSchema.methods.encrypPassword = async password => {
+    const salt = await bcrypt.genSalt(10);
+    return await bcrypt.hash(password, salt);
+};
+//devuelve true o false si es password es correcto
+userSchema.methods.matchPassword = async function(password) {
+    return await bcrypt.compare(password, this.password);
 }
+
+// exportar el modelo
+module.exports = User;
