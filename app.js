@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
-const feedRoutes = require("./routes/feed");
+const feedRoutes = require("./routes/feed-routes");
 const userRoutes = require("./routes/user-routes");
 
 require("./lib/connectMongoose");
@@ -25,4 +26,15 @@ app.use((req, res, next) => {
 app.use("/feed", feedRoutes);
 app.use("/user", userRoutes);
 
-app.listen(3000);
+// esto es solo para quitar un warning que daba mongoose
+mongoose.set("strictQuery", false);
+
+mongoose
+  .connect(
+    "mongodb+srv://admin:qmhx2hwedvyVSs1a@cluster0.orlgros.mongodb.net/Flitter?retryWrites=true&w=majority"
+  )
+  .then(() => app.listen(3000))
+  .then(() =>
+    console.log(" Connected to Database and Listening on Localhost 3000")
+  )
+  .catch((err) => console.log(err));
