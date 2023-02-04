@@ -9,7 +9,8 @@ const flitSchema = new Schema(
   {
     id_user: { type: Number, index: true },
     author: { type: Schema.Types.ObjectId, ref: "User" },
-    message: { type: String, required: true, index: true },
+    message: { type: String, index: true },
+    image: { type: String },
   },
   { timestamps: true }
 );
