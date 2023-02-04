@@ -2,7 +2,6 @@ const User = require("../models/User");
 const bcryptjs = require("bcryptjs");
 
 const getAllUser = async (req, res, next) => {
-  console.log("hey");
   let users;
   try {
     users = await User.find();
@@ -16,7 +15,7 @@ const getAllUser = async (req, res, next) => {
 };
 
 const signup = async (req, res, next) => {
-  const { name, email, password, alias } = req.body; //frontend
+  const { name, email, password } = req.body; //frontend
   // existing user valida usuarios
   let existingUser;
   try {
@@ -30,13 +29,13 @@ const signup = async (req, res, next) => {
       .json({ message: "User already exist! Login instead.." });
   }
   //encrypted password
-  const hashedPassword = bcryptjs.hashSync(password);
+  // const hashedPassword = bcryptjs.hashSync(password);
 
   const user = new User({
     name,
     email,
-    alias,
-    password: hashedPassword,
+    password,
+    // password: hashedPassword,
   });
   try {
     user.save();

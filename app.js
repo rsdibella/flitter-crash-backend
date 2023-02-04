@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const feedRoutes = require("./routes/feed-routes");
 const userRoutes = require("./routes/user-routes");
 
-require("./lib/connectMongoose");
+// require("./lib/connectMongoose");
 
 const app = express();
 

@@ -4,10 +4,11 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   name: { type: String, index: true },
-  alias: { type: String, index: true, unique: true },
   email: { type: String, index: true, unique: true },
   password: { type: String, index: true, minlength: 8 },
-  // foto: String
+  avatar: { type: String },
+  peopleYouFollow: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
 });
 
 module.exports = mongoose.model("User", userSchema);

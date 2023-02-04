@@ -1,14 +1,15 @@
 "use strict";
 
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 //definir esquema de tweet
 
-const flitSchema = mongoose.Schema(
+const flitSchema = new Schema(
   {
-    //  id: { type: Number, index: true },
     id_user: { type: Number, index: true },
-    message: { type: String, index: true },
+    author: { type: Schema.Types.ObjectId, ref: "User" },
+    message: { type: String, required: true, index: true },
   },
   { timestamps: true }
 );
