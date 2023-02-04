@@ -11,7 +11,9 @@ const getAllUser = async (req, res, next) => {
   if (!users) {
     return res.status(404), json({ mesage: "No Users Found." });
   }
-  return res.status(200).json({ users });
+  return res
+    .status(200)
+    .json({ successMessage: "Lista de usuarios obtenida", users });
 };
 
 const signup = async (req, res, next) => {
@@ -42,7 +44,10 @@ const signup = async (req, res, next) => {
   } catch (err) {
     return console.log(err);
   }
-  return res.status(201).json({ user });
+  return res.status(201).json({
+    successMessage: "Usuario registrado",
+    user: user,
+  });
 };
 
 module.exports = { getAllUser, signup };

@@ -74,18 +74,18 @@ Respuesta:
 
 ```
 {
-    "successMessage": "Lista de flits obtenida",
-    "flits": [
+    "successMessage": "Lista de usuarios obtenida",
+    "users": [
         {
-            "_id": "63dd6d29ed381c00cd6bfb0f",
-            "id_user": 1,
-            "message": "Content of the post by user 1",
-            "createdAt": "2023-02-03T20:23:05.905Z",
-            "updatedAt": "2023-02-03T20:23:05.905Z",
-            "__v": 0
+            "_id": "63deac6707b750fd76422bb0",
+            "name": "Bruno",
+            "email": "mip@map.com",
+            "password": "1234173628",
+            "peopleYouFollow": [],
+            "__v": 0,
+            "followers": []
         },
     // ...
-    ]
 }
 ```
 
@@ -107,6 +107,7 @@ Respuesta:
 
 ```
 {
+    "successMessage": "Usuario registrado",
     "user": {
         "name": "Roberta",
         "email": "pari@pé.com",
