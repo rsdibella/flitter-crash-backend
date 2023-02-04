@@ -45,5 +45,4 @@ const signup = async (req, res, next) => {
   return res.status(201).json({ user });
 };
 
-module.exports = getAllUser;
-module.exports = signup;
+module.exports = { getAllUser, signup };

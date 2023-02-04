@@ -62,7 +62,7 @@ Respuesta:
 
 ## Usuarios
 
-(NO FUNCIONA) Lista de todos los usuarios: se accede a partir del endpoint `/user`.
+Lista de todos los usuarios: se accede a partir del endpoint `/user`.
 
 Petición:
 
