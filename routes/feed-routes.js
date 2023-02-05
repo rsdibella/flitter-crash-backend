@@ -1,4 +1,5 @@
 const express = require("express");
+const { body } = require("express-validator");
 
 const feedController = require("../controllers/feed-controller");
 
@@ -9,6 +10,10 @@ const router = express.Router();
 router.get("/flits", feedController.getFlits);
 
 // ejecuta peticiones POST /feed/fleets
-router.post("/flits", feedController.createFlit);
+router.post(
+  "/flits",
+  [body("message").trim().isLength({ min: 1 })],
+  feedController.createFlit
+);
 
 module.exports = router;
