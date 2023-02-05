@@ -30,15 +30,15 @@ const signup = async (req, res, next) => {
       .status(400)
       .json({ message: "User already exist! Login instead.." });
   }
-  //encrypted password
-  // const hashedPassword = bcryptjs.hashSync(password);
+  const hashedPassword = bcryptjs.hashSync(password);
 
   const user = new User({
     name,
     email,
     password,
-    // password: hashedPassword,
+    password: hashedPassword,
   });
+  //encrypted password
   try {
     user.save();
   } catch (err) {
@@ -49,5 +49,26 @@ const signup = async (req, res, next) => {
     user: user,
   });
 };
-
-module.exports = { getAllUser, signup };
+const login = async (req, res, next) => {
+  const { email, password } = req.body; //SOLO email y password fronten
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ email });
+  } catch (err) {
+    return console.log(err);
+  }
+  if (!existingUser) {
+    return res
+      .status(404)
+      .json({ message: "Couldnt find user by this email.." });
+  }
+  const isPasswordCorrect = bcryptjs.compareSync(
+    password,
+    existingUser.password
+  );
+  if (!isPasswordCorrect) {
+    return res.status(404).json({ message: "Incorrect password" });
+  }
+  return res.status(200).json({ message: "Login Successfull" });
+};
+module.exports = { getAllUser, signup, login };
