@@ -1,4 +1,5 @@
 const Flit = require("../models/Flit");
+const User = require("../models/User");
 const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 
@@ -30,6 +31,7 @@ exports.createFlit = async (req, res, next) => {
   }
   const message = req.body.message;
   const id_user = req.body.id_user;
+  const author = req.body.author;
   const flit = new Flit({
     id_user: id_user,
     message: message,
@@ -37,10 +39,15 @@ exports.createFlit = async (req, res, next) => {
   // aquí se crea el flit en la base de datos
   try {
     const savedFlit = await flit.save();
+    const flitCreator = await User.findById(id_user);
+    console.log(flitCreator);
     console.log(savedFlit);
+    flitCreator.flits.push(savedFlit);
+    const creator = await flitCreator.save();
     res.status(201).json({
       successMessage: "Flit creado",
       flit: savedFlit,
+      creator: { _id: creator._id, name: creator.name },
     });
   } catch (error) {
     if (error.statusCode) {

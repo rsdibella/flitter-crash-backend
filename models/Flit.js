@@ -7,8 +7,7 @@ const Schema = mongoose.Schema;
 
 const flitSchema = new Schema(
   {
-    id_user: { type: Number, required: true, index: true },
-    author: { type: Schema.Types.ObjectId, ref: "User" },
+    id_user: { type: Schema.Types.ObjectId, ref: "User" },
     message: { type: String, required: true, index: true },
     image: { type: String },
   },
