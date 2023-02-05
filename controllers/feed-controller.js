@@ -18,10 +18,10 @@ exports.getFlits = (req, res, next) => {
 exports.createFlit = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json({
-      errorMessage: "Validation failed, entered data is incorrect.",
-      errors: errors.array(),
-    });
+    const error = new Error("Validation failed, entered data is incorrect.");
+    // 422 = error de validación
+    error.statusCode = 422;
+    throw error;
   }
   const message = req.body.message;
   const id_user = req.body.id_user;
@@ -42,6 +42,11 @@ exports.createFlit = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
+      if (err.statusCode) {
+        // 500 = error de servidor
+        err.statusCode = 500;
+      }
+      // como el código es asíncrono, mandamos el error al próximo middleware
+      next(err);
     });
 };

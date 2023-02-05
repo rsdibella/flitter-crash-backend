@@ -26,6 +26,14 @@ app.use((req, res, next) => {
 app.use("/feed", feedRoutes);
 app.use("/user", userRoutes);
 
+// este middleware se ejecuta cada vez que mandamos algún error con next()
+app.use((error, req, res, next) => {
+  console.log(error);
+  const status = error.statusCode || 500;
+  const message = error.message;
+  res.status(status).json({ message: message });
+});
+
 // esto es solo para quitar un warning que daba mongoose
 mongoose.set("strictQuery", false);
 
