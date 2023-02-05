@@ -60,6 +60,30 @@ Respuesta:
 }
 ```
 
+Ver el detalle de un solo flit: a partir del endpoint `/feed/flits/:flitId"`.
+
+Petición:
+
+```
+[GET] http://localhost:3000/feed/flits/63dd6d29ed381c00cd6bfb0f
+```
+
+Respuesta:
+
+```
+{
+    "successMessage": "Flit obtenido.",
+    "flit": {
+        "_id": "63dd6d29ed381c00cd6bfb0f",
+        "id_user": 1,
+        "message": "This is a post by user 1",
+        "createdAt": "2023-02-03T20:23:05.905Z",
+        "updatedAt": "2023-02-03T20:23:05.905Z",
+        "__v": 0
+    }
+}
+```
+
 ## Usuarios
 
 Lista de todos los usuarios: se accede a partir del endpoint `/user`.
