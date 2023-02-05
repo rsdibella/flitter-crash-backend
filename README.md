@@ -142,3 +142,17 @@ Respuesta:
     }
 }
 ```
+Para hacer el login, se puede usar el endpoint `/user/login`. Ahora mismo admite dos parámetros, email y password.
+
+[POST] http://localhost:3000/user/login
+# Body
+{
+    "email": "juano1@flitt.com",
+    "password": "6789101112"
+}
+
+Respuesta 
+{
+    "message": "Login Successfull"
+}
+```

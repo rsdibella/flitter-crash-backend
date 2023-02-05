@@ -43,6 +43,6 @@ mongoose
   )
   .then(() => app.listen(3000))
   .then(() =>
-    console.log(" Connected to Database and Listening on Localhost 3000")
+    console.log(" Connected to Database and listening on Localhost 3000")
   )
   .catch((err) => console.log(err));
