@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 
 // registramos la ruta para poder usarla con peticiones que empiecen por /feed
 app.use("/feed", feedRoutes);
-app.use("/user", userRoutes);
+app.use("/users", userRoutes);
 
 // este middleware se ejecuta cada vez que mandamos algún error con next()
 app.use((error, req, res, next) => {

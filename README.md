@@ -86,12 +86,12 @@ Respuesta:
 
 ## Usuarios
 
-Lista de todos los usuarios: se accede a partir del endpoint `/user`.
+Lista de todos los usuarios: se accede a partir del endpoint `/users`.
 
 Petición:
 
 ```
-[GET] http://localhost:3000/user
+[GET] http://localhost:3000/users
 ```
 
 Respuesta:
@@ -113,12 +113,12 @@ Respuesta:
 }
 ```
 
-Para crear un nuevo usuario, se puede usar el endpoint `/user/signup`. Ahora mismo admite tres parámetros, name, email y password.
+Para crear un nuevo usuario, se puede usar el endpoint `/users/signup`. Ahora mismo admite tres parámetros, name, email y password.
 
 Petición:
 
 ```
-[POST] http://localhost:3000/user/signup
+[POST] http://localhost:3000/users/signup
 # Body
 {
     "name": "Roberta",
