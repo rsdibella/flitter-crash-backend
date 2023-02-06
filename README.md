@@ -17,19 +17,19 @@ Respuesta:
     "successMessage": "Lista de flits obtenida",
     "flits": [
         {
-            "_id": "63dd6d29ed381c00cd6bfb0f",
-            "id_user": 1,
-            "message": "Content of the post by user 1",
-            "createdAt": "2023-02-03T20:23:05.905Z",
-            "updatedAt": "2023-02-03T20:23:05.905Z",
+            "_id": "63e00a08dc9db6e04c49c477",
+            "id_user": "63dfc759786dde91510a8c7d",
+            "message": "Este flit es de Oscar",
+            "createdAt": "2023-02-05T19:56:56.983Z",
+            "updatedAt": "2023-02-05T19:56:56.983Z",
             "__v": 0
-        },
+        }
     // ...
     ]
 }
 ```
 
-Se puede crear un flit enviando un objeto a la misma ruta. Ahora mismo admite dos parámetros, id_user y message.
+Se puede crear un flit enviando un objeto a la misma ruta. Ahora mismo admite dos parámetros, id_user (que es una referencia a una id de un usuario) y message.
 
 Petición:
 
@@ -37,8 +37,10 @@ Petición:
 [POST] http://localhost:3000/feed/flits
 # Body
 {
-    "id_user": "1",
-    "message": "Content of the post"
+    "id_user": {
+        "_id": "63dfc759786dde91510a8c7d"
+     },
+    "message": "Este flit es de Oscar"
 }
 ```
 
@@ -46,16 +48,18 @@ Respuesta:
 
 ```
 {
-    "successMessage": "Fleet creado",
+    "successMessage": "Flit creado",
     "flit": {
-        "result": {
-            "id_user": 1,
-            "message": "Content of the post",
-            "_id": "63dd766c4e3b03c03d1f1d4d",
-            "createdAt": "2023-02-03T21:02:36.666Z",
-            "updatedAt": "2023-02-03T21:02:36.666Z",
-            "__v": 0
-        }
+        "id_user": "63dfc759786dde91510a8c7d",
+        "message": "Este flit es de Oscar",
+        "_id": "63e00a08dc9db6e04c49c477",
+        "createdAt": "2023-02-05T19:56:56.983Z",
+        "updatedAt": "2023-02-05T19:56:56.983Z",
+        "__v": 0
+    },
+    "creator": {
+        "_id": "63dfc759786dde91510a8c7d",
+        "name": "Oscar"
     }
 }
 ```
@@ -101,13 +105,17 @@ Respuesta:
     "successMessage": "Lista de usuarios obtenida",
     "users": [
         {
-            "_id": "63deac6707b750fd76422bb0",
-            "name": "Bruno",
-            "email": "mip@map.com",
-            "password": "1234173628",
+            "_id": "63dfc759786dde91510a8c7d",
+            "name": "Oscar",
+            "email": "oscar@flitt.com",
+            "password": "$2a$10$2rPEjwP1aHgobqB7Qvv2NOAqM.mOTaXvJzCBJMhgoAPjmaSPErEPm",
             "peopleYouFollow": [],
-            "__v": 0,
-            "followers": []
+            "followers": [],
+            "__v": 2,
+            "flits": [
+                "63e001a1f34eee2e5a162e12",
+                "63e00a08dc9db6e04c49c477"
+            ]
         },
     // ...
 }
@@ -140,19 +148,5 @@ Respuesta:
         "followers": [],
         "_id": "63dead2ffd9bb4c0b020b7e4"
     }
-}
-```
-Para hacer el login, se puede usar el endpoint `/users/login`. Ahora mismo admite dos parámetros, email y password.
-
-[POST] http://localhost:3000/users/login
-# Body
-{
-    "email": "juano1@flitt.com",
-    "password": "6789101112"
-}
-
-Respuesta 
-{
-    "message": "Login Successfull"
 }
 ```
