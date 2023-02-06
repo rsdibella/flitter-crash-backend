@@ -6,7 +6,10 @@ const mongoose = require("mongoose");
 // exportar modelo de flit
 exports.getFlits = async (req, res, next) => {
   try {
-    const flits = await Flit.find();
+    const flits = await Flit.find().populate("id_user", {
+      name: 1,
+      avatar: 1,
+    });
     res.status(200).json({
       successMessage: "Lista de flits obtenida",
       flits: flits,

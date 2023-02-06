@@ -4,7 +4,10 @@ const bcryptjs = require("bcryptjs");
 const getAllUser = async (req, res, next) => {
   let users;
   try {
-    users = await User.find();
+    users = await User.find().populate("flits", {
+      message: 1,
+      createdAt: 1,
+    });
   } catch (err) {
     console.log(err);
   }
