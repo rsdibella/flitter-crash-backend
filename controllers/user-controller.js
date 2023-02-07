@@ -1,5 +1,7 @@
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs");
+const service = require("../services/index")
+console.log(service)
 
 const getAllUser = async (req, res, next) => {
   let users;
@@ -50,6 +52,8 @@ const signup = async (req, res, next) => {
   return res.status(201).json({
     successMessage: "Usuario registrado",
     user: user,
+    token: service.createToken(user)
+
   });
 };
 const login = async (req, res, next) => {
@@ -72,6 +76,8 @@ const login = async (req, res, next) => {
   if (!isPasswordCorrect) {
     return res.status(404).json({ message: "Incorrect password" });
   }
-  return res.status(200).json({ message: "Login Successfull" });
+  return res.status(200).json({ message: "Login Successfull" ,
+  token: service.createToken(existingUser)}
+  );
 };
 module.exports = { getAllUser, signup, login };
