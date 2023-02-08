@@ -1,7 +1,8 @@
 const User = require("../models/User");
 const bcryptjs = require("bcryptjs");
-const service = require("../services/index")
-console.log(service)
+const service = require("../services/index");
+const mongoose = require("mongoose");
+// console.log(service);
 
 const getAllUser = async (req, res, next) => {
   let users;
@@ -20,6 +21,30 @@ const getAllUser = async (req, res, next) => {
     .status(200)
     .json({ successMessage: "Lista de usuarios obtenida", users });
 };
+
+const getOneUser = async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      const error = new Error("No se pudo encontrar el usuario.");
+      error.statusCode = 404;
+      throw error;
+    }
+    const user = await User.findById(userId);
+    console.log(user);
+    res.status(200).json({ successMessage: "Usuario obtenido.", user: user });
+  } catch (error) {
+    console.log(error);
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
+
+const followUser = async (req, res, next) => {};
+
+const unfollowUser = async (req, res, next) => {};
 
 const signup = async (req, res, next) => {
   const { name, email, password } = req.body; //frontend
@@ -52,8 +77,7 @@ const signup = async (req, res, next) => {
   return res.status(201).json({
     successMessage: "Usuario registrado",
     user: user,
-    token: service.createToken(user)
-
+    token: service.createToken(user),
   });
 };
 const login = async (req, res, next) => {
@@ -76,8 +100,17 @@ const login = async (req, res, next) => {
   if (!isPasswordCorrect) {
     return res.status(404).json({ message: "Incorrect password" });
   }
-  return res.status(200).json({ message: "Login Successfull" ,
-  token: service.createToken(existingUser)}
-  );
+  return res.status(200).json({
+    message: "Login Successfull",
+    token: service.createToken(existingUser),
+  });
 };
-module.exports = { getAllUser, signup, login };
+
+module.exports = {
+  getAllUser,
+  signup,
+  login,
+  getOneUser,
+  followUser,
+  unfollowUser,
+};
