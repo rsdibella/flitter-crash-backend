@@ -42,9 +42,65 @@ const getOneUser = async (req, res, next) => {
   }
 };
 
-const followUser = async (req, res, next) => {};
+const followUser = async (req, res, next) => {
+  const userToFollowId = req.params.userId;
+  const { _id } = req.body;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userToFollowId)) {
+      const error = new Error("El usuario al que quieres seguir no existe.");
+      error.statusCode = 404;
+      throw error;
+    }
+    const userToFollow = await User.findById(userToFollowId);
+    const userFollowing = await User.findById(_id);
 
-const unfollowUser = async (req, res, next) => {};
+    userToFollow.followers.push(_id);
+    userFollowing.peopleYouFollow.push(userToFollowId);
+
+    await userToFollow.save();
+    await userFollowing.save();
+    res.status(200).json({ successMessage: "Usuario seguido." });
+  } catch (error) {
+    console.log(error);
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
+
+const unfollowUser = async (req, res, next) => {
+  const userToUnfollowId = req.params.userId;
+  const { _id } = req.body;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(userToUnfollowId)) {
+      const error = new Error(
+        "El usuario al que quieres dejar de seguir no existe."
+      );
+      error.statusCode = 404;
+      throw error;
+    }
+    const userToUnfollow = await User.findById(userToUnfollowId);
+    const userUnfollowing = await User.findById(_id);
+
+    const usToUnfollowIdx = userToUnfollow.followers.indexOf(_id);
+    userToUnfollow.followers.splice(usToUnfollowIdx, 1);
+
+    const usUnfollowingIdx =
+      userUnfollowing.peopleYouFollow.indexOf(userToUnfollowId);
+    userUnfollowing.peopleYouFollow.splice(usUnfollowingIdx, 1);
+
+    await userToUnfollow.save();
+    await userUnfollowing.save();
+    res.status(200).json({ successMessage: "Usuario dejado de seguir." });
+  } catch (error) {
+    console.log(error);
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
+};
 
 const signup = async (req, res, next) => {
   const { name, email, password } = req.body; //frontend
@@ -101,7 +157,7 @@ const login = async (req, res, next) => {
     return res.status(404).json({ message: "Incorrect password" });
   }
   return res.status(200).json({
-    message: "Login Successfull",
+    message: "Login Successful",
     token: service.createToken(existingUser),
   });
 };

@@ -163,24 +163,71 @@ Para hacer el login, se puede usar el endpoint `/users/login`. Ahora mismo admit
 
 Respuesta
 {
-    "message": "Login Successfull"
+    "message": "Login Successful"
 }
 ```
 
 ## Auth with JWT
 
-[POST](http://localhost:3000/users/login)
+Petición:
+
+```
+[POST] http://localhost:3000/users/login
 # Body
 {
-   
     "email": "sabri@gmail.com",
     "password": "123456789"
 }
+```
 
+Respuesta
 
-# Respuesta
+```
 {
-    "message": "Login Successfull",
+    "message": "Login Successful",
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2M2UyYjU2MDNmY2M4NzRjMTkwNjliZjMiLCJpYXQiOjE2NzU4MDI0NDEsImV4cCI6MTY3NzAxMjA0MX0.Ta-TyzGo5frgtRZUwXnj5nkXFOoorQhTIcRchFK4090"
-    
+
 }
+```
+
+## Seguir usuarios
+
+La petición debe mandarse con la id del usuario autenticado al endpoint `/users/:userId/follow`, que incluye la id del usuario a seguir.
+
+Petición:
+
+```
+[PUT] http://localhost:3000/users/63e2b5603fcc874c19069bf3/follow
+# Body
+{
+    "_id": "63e3e7b4b5522e8e7a65bde3"
+}
+```
+
+Respuesta
+
+```
+{
+    "successMessage": "Usuario seguido."
+}
+```
+
+Para dejar de seguir, se hace el mismo proceso cambiando la petición PUT por una DELETE y con el endpoint `/users/:userId/unfollow`.
+
+Petición:
+
+```
+[DELETE] http://localhost:3000/users/63e2b5603fcc874c19069bf3/unfollow
+# Body
+{
+    "_id": "63e3e7b4b5522e8e7a65bde3"
+}
+```
+
+Respuesta
+
+```
+{
+    "successMessage": "Usuario dejado de seguir."
+}
+```
