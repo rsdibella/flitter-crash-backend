@@ -148,6 +148,7 @@ Respuesta:
         "followers": [],
         "_id": "63dead2ffd9bb4c0b020b7e4"
     }
+     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2M2UyYjU2MDNmY2M4NzRjMTkwNjliZjMiLCJpYXQiOjE2NzU4MDI0NDEsImV4cCI6MTY3NzAxMjA0MX0.Ta-TyzGo5frgtRZUwXnj5nkXFOoorQhTIcRchFK4090"
 }
 ```
 
@@ -157,13 +158,24 @@ Para hacer el login, se puede usar el endpoint `/users/login`. Ahora mismo admit
 [POST] http://localhost:3000/users/login
 # Body
 {
-    "email": "juano1@flitt.com",
-    "password": "6789101112"
+    "email": "sabri@gmail.com",
+    "password": "123456789"
 }
 
 Respuesta
 {
-    "message": "Login Successful"
+    "message": "Login Successful",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2M2UyYjU2MDNmY2M4NzRjMTkwNjliZjMiLCJpYXQiOjE2NzU5Njc5MTEsImV4cCI6MTY3NzE3NzUxMX0.CLmqWCod7Wn1or8kFghsT6g0Mwz0hi0wbLJG6coVc7Y",
+    "user": {
+        "_id": "63e2b5603fcc874c19069bf3",
+        "name": "Sabri",
+        "email": "sabri@gmail.com",
+        "password": "$2a$10$MjLGida1obPjytOb8ZRIm.3NXJ147khrVU3.S1LOBDpxpKty1z/Iu",
+        "flits": [],
+        "peopleYouFollow": [],
+        "followers": [],
+        "__v": 2
+    }
 }
 ```
 
