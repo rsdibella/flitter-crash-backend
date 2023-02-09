@@ -159,6 +159,7 @@ const login = async (req, res, next) => {
   return res.status(200).json({
     message: "Login Successful",
     token: service.createToken(existingUser),
+    user: existingUser
   });
 };
 
