@@ -148,5 +148,24 @@ Respuesta:
         "followers": [],
         "_id": "63dead2ffd9bb4c0b020b7e4"
     }
+     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2M2UyYjU2MDNmY2M4NzRjMTkwNjliZjMiLCJpYXQiOjE2NzU4MDI0NDEsImV4cCI6MTY3NzAxMjA0MX0.Ta-TyzGo5frgtRZUwXnj5nkXFOoorQhTIcRchFK4090"
+}
+```
+<<<<<<< HEAD
+=======
+
+Para hacer el login, se puede usar el endpoint `/users/login`. Ahora mismo admite dos parámetros, email y password.
+
+```
+[POST] http://localhost:3000/users/login
+# Body
+{
+    "email": "juano1@flitt.com",
+    "password": "6789101112"
+}
+
+Respuesta
+{
+    "message": "Login Successfull"
 }
 ```
